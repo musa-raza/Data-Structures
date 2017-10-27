@@ -9,7 +9,12 @@ module Searchable
   end
 
   def bfs(target_value)
-
+    queue = [self]
+    until queue.empty?
+      node = queue.shift
+      return node if node.value == target_value
+      queue.concat(node.children)
+    end
   end
 end
 
