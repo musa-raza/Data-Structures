@@ -118,3 +118,68 @@ def seed_nums(number)
     end
   end.compact
 end
+
+def kth_to_last(head, k)
+  slow = head
+  fast = head
+  k.times do |i|
+    fast = fast.next
+  end
+
+  while fast.val != nil
+    fast = fast.next
+    slow = slow.next
+  end
+
+  return slow
+end
+
+class StackQueue
+
+  def initialize
+    @in = []
+    @out = []
+  end
+
+  def enqueue(val)
+    @in << val
+  end
+
+  def dequeue
+
+    if @out.empty?
+      @out << @in.pop until @in.empty?
+    end
+
+    @out.pop
+  end
+
+end
+
+class MaxStack
+
+  def initialize
+    @store = []
+  end
+
+  def push(value)
+    if @store.empty?
+      @store << { val: value, max: value}
+    else
+      @store << { val: value, max: [@store[-1][max], value].max }
+    end
+  end
+
+  def pop
+    @store.pop[:val]
+  end
+
+  def max
+    @store.empty? ? nil : @store[-1][:max]
+  end
+end
+
+
+1. How to find nth element from the end in a linked list.
+2. Implement queue using stacks.
+3. Remove an element from a linked list when we know only the pointer to it.
