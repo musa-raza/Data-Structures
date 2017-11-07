@@ -134,6 +134,11 @@ def kth_to_last(head, k)
   return slow
 end
 
+def delete_node(node)
+  node.val = node.next.val;
+  node.next = node.next.next;
+end
+
 class StackQueue
 
   def initialize
@@ -166,7 +171,7 @@ class MaxStack
     if @store.empty?
       @store << { val: value, max: value}
     else
-      @store << { val: value, max: [@store[-1][max], value].max }
+      @store << { val: value, max: [@store[-1][:max], value].max }
     end
   end
 
@@ -178,8 +183,8 @@ class MaxStack
     @store.empty? ? nil : @store[-1][:max]
   end
 end
-
-
-1. How to find nth element from the end in a linked list.
-2. Implement queue using stacks.
-3. Remove an element from a linked list when we know only the pointer to it.
+#
+#
+# 1. How to find nth element from the end in a linked list.
+# 2. Implement queue using stacks.
+# 3. Remove an element from a linked list when we know only the pointer to it.
