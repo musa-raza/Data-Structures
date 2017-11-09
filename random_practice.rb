@@ -198,6 +198,27 @@ def is_valid(string)
   end
   return stack.length == 0
 end
+
+# Binarytree 
+def lowest_common_ancestor(root, p, q)
+
+    if root == nil
+      return nil
+    end
+
+    if root == p || root == q
+      return root
+    end
+
+    left = lowest_common_ancestor(root.left, p, q)
+    right = lowest_common_ancestor(root.right, p, q)
+
+    if left != nil && right != nil
+      return root
+    end
+
+    return left == nil ? right : left
+end
 #
 #
 # 1. How to find nth element from the end in a linked list.
