@@ -199,7 +199,7 @@ def is_valid(string)
   return stack.length == 0
 end
 
-# Binarytree 
+# Binarytree
 def lowest_common_ancestor(root, p, q)
 
     if root == nil
@@ -218,6 +218,55 @@ def lowest_common_ancestor(root, p, q)
     end
 
     return left == nil ? right : left
+end
+
+def permutations(array)
+  return [array] if array.length <= 1
+  first = array.shift
+  perms = permutations(array)
+  result = []
+  perms.each do |perm|
+    (0..perm.length).each do |i|
+      result << perm[0...i]+ [first] + perm[i..-1]
+    end
+  end
+  result
+end
+
+def lowest_common_ancestor(root, p, q)
+  if root == nil
+    return nil
+  end
+
+  if p.val >= root.val && q.val <= root.val || p.val <= root.val && q.val >= root.val
+      return root
+  end
+
+
+  if p.val <= root.val && q.val <= root.val
+      return lowest_common_ancestor(root.left, p, q)
+  else
+      return lowest_common_ancestor(root.right, p, q)
+  end
+
+end
+
+def find_missing_num(arr)
+  actual_sum = arr.reduce(:+)
+  expected_sum = (0..arr.length).reduce(:+)
+  return expected_sum - actual_sum
+end
+
+def substrings(string)
+  result = []
+  string.length.times do |i|
+    string.length.times do |j|
+      word = string[i..j]
+      next if word.length < 1
+      result << word
+    end
+  end
+  result
 end
 #
 #
