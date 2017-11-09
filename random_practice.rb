@@ -183,6 +183,21 @@ class MaxStack
     @store.empty? ? nil : @store[-1][:max]
   end
 end
+
+def is_valid(string)
+  left_matchers = ["[", "(", "{" ]
+  right_matchers = ["]", ")", "}"]
+  stack = []
+  string.chars.each do |ch|
+    if left_matchers.include?(ch)
+      stack << ch
+    elsif right_matchers.include?(ch)
+      val_popped = stack.pop
+      return false if left_matchers.index(val_popped) != right_matchers.index(ch)
+    end
+  end
+  return stack.length == 0
+end
 #
 #
 # 1. How to find nth element from the end in a linked list.
