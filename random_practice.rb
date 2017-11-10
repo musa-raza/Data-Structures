@@ -311,6 +311,36 @@ end
       result
   end
 
+def get_height(root)
+  return -1 unless root
+  return [get_height(root.left), get_height(root.right)].max + 1
+end
+
+def is_balanced(root)
+  return true unless root
+  height_difference = get_height(root.left) - get_height(root.right)
+  if height_difference.abs > 1
+     return false
+  else
+     return is_balanced(root.left) && is_balanced(root.right)
+  end
+end
+
+
+def sorted_array_to_bst(nums)
+  if nums.length < 1
+      return nil
+  end
+
+  if nums.length <= 1
+      return TreeNode.new(nums[0])
+  end
+  mid = nums.length / 2
+  node = TreeNode.new(nums[mid])
+  node.left = sorted_array_to_bst(nums[0...mid])
+  node.right = sorted_array_to_bst(nums[mid + 1..-1])
+  return node
+end
 # 1. How to find nth element from the end in a linked list.
 # 2. Implement queue using stacks.
 # 3. Remove an element from a linked list when we know only the pointer to it.
