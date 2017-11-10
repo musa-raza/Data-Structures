@@ -341,6 +341,34 @@ def sorted_array_to_bst(nums)
   node.right = sorted_array_to_bst(nums[mid + 1..-1])
   return node
 end
+
+def is_palindrome(head)
+
+  fast = head
+  slow = head
+
+  stack = []
+
+  while fast && fast.next && slow
+     stack << slow.val
+      slow = slow.next
+      fast = fast.next.next
+  end
+
+  if fast
+    slow = slow.next
+  end
+
+  while slow
+    popped = stack.pop
+    if popped != slow.val
+      return false
+    end
+
+    slow = slow.next
+  end
+ return true
+end
 # 1. How to find nth element from the end in a linked list.
 # 2. Implement queue using stacks.
 # 3. Remove an element from a linked list when we know only the pointer to it.
