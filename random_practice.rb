@@ -1,4 +1,5 @@
 require 'byebug'
+require 'set'
 
 def print_spiral(array)
   dup = array.dup
@@ -268,8 +269,48 @@ def substrings(string)
   end
   result
 end
-#
-#
+
+  def pair_sum(arr, k)
+    seen = Set.new
+    pairs = Set.new
+
+    arr.each_with_index do |num, idx|
+      target = k - num
+
+      if seen.include?(target)
+        pairs.add(
+          [[idx, arr.find_index(target)].min, [idx, arr.find_index(target)].max]
+        )
+      end
+
+      seen.add(num)
+    end
+
+    pairs.to_a.flatten
+  end
+
+  def length_of_longest_substring(s)
+      seen = {}
+      result = ""
+      temp = ""
+      (0...s.length).each do |i|
+        ch = s[i]
+        debugger
+        if (!seen[ch])
+           seen[ch] = i
+           temp += ch
+        else
+            new_string = temp.slice(seen[ch]+1..-1)
+            temp = new_string ? new_string + ch : ch
+            seen[ch] += 1
+        end
+        if temp.length >= result.length
+          result = temp
+        end
+      end
+      result
+  end
+
 # 1. How to find nth element from the end in a linked list.
 # 2. Implement queue using stacks.
 # 3. Remove an element from a linked list when we know only the pointer to it.
